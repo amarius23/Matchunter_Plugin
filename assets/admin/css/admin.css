@@ -1,0 +1,22 @@
+.page-header {
+  background-color: #01151c;
+  margin-left: -20px;
+  margin-bottom: 20px;
+}
+
+.page-header .page-header-inner {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  font-size: 17px;
+  color: #2fbfc6;
+}
+
+.page-header .header-logo {
+  height: 60px;
+  display: block;
+  margin-right: 10px;
+}

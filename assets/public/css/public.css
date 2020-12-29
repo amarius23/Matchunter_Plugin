@@ -1,0 +1,20 @@
+.matchunter-container {
+  min-height: 150px;
+  position: relative;
+}
+
+.matchunter-container:after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-image: url("../img/spinner1.gif");
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.matchunter-container.is-ready:after {
+  display: none;
+}
