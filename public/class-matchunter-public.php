@@ -99,7 +99,7 @@ class Matchunter_Public {
    	
      	if($params['type'] == 'lineup')
     	$response = $client->request('GET', MATCHUNTER_API['root'].'/'.$params['match_id'].'/lineup?token='.$row['token']);
-
+   				
     	return $response->getBody();
 		}
 	catch (GuzzleHttp\Exception\ClientException $e) {
@@ -141,8 +141,15 @@ class Matchunter_Public {
 		$json_params 	= htmlspecialchars(json_encode($params), ENT_QUOTES, 'UTF-8');
 		ob_start();
 		?>
-
-		<p><?php echo $this->make_request($params);?></p>
+		
+		<?php echo $this->make_request($params);?>
+		<?php 
+			if(isset($_POST['submit'])){
+				echo '<h1 style="color:red;">'.$_POST['title'].'</h1>';
+			}
+		?>
+		
+		
 		<!-- <div class="matchunter-container" data-params="<?php echo $json_params;?>"></div> -->
 		<?php
 

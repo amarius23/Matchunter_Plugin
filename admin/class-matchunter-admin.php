@@ -301,6 +301,11 @@ class Matchunter_Admin {
 
 		?>
 	  <input type="text" class="regular-text" name="api_token" value="<?php echo $first_text; ?>">
+	  <?php 
+	  if (preg_match('/[^A-Za-z0-9]/', $first_text)){
+		  echo '<br><p style="color:red">Invalid Characters!</p>';
+	  }
+	  ?>
 		<p class="description">Get your API Token <a href="https://matchunter.com/?mod=login" target="_blank">here</a>.</p>
 
 		
