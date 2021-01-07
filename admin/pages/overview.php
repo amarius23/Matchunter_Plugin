@@ -152,7 +152,7 @@
 				-webkit-text-fill-color: transparent; margin-left:10%; margin-right: 20%">
 			<h2 style="margin-top:2%;margin-left:30%">Description</h2>
 			<?php 
-				if(empty($descriptions)){
+				if(empty($descriptions)) {
 					echo'Nothing to describe';
 				} else { 
 					foreach ($descriptions as $description) {

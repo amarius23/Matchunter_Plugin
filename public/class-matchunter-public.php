@@ -67,45 +67,43 @@ class Matchunter_Public {
 	 *
 	 */
 	
-	protected function make_request($params){
+	protected function make_request($params) {
 
-	$conn = mysqli_connect(DB_HOST, DB_USER,DB_PASSWORD, DB_NAME);
-        // Check connection
-        if (!$conn){
-        die("Connection failed: " . mysqli_connect_error());
-        }
-        $control = "SELECT token FROM matchunter_client_token";
-        $result = mysqli_query($conn, $control);
+		$conn = mysqli_connect(DB_HOST, DB_USER,DB_PASSWORD, DB_NAME);
+			// Check connection
+		if (!$conn) {
+			die("Connection failed: " . mysqli_connect_error());
+		}
+		$control = "SELECT token FROM matchunter_client_token";
+		$result = mysqli_query($conn, $control);
 		$row = mysqli_fetch_assoc($result);
 
-	    $client = new \GuzzleHttp\Client();
-	try {
-		if($params['type'] == 'round_list')
-    	$response = $client->request('GET', MATCHUNTER_API['root'].MATCHUNTER_API['names'][$params['type']]['endpoint'].'/'.'1'.'?token='.$row['token']);
+		$client = new \GuzzleHttp\Client();
+		try {
+			if($params['type'] == 'round_list')
+			$response = $client->request('GET', MATCHUNTER_API['root'].MATCHUNTER_API['names'][$params['type']]['endpoint'].'/'.'1'.'?token='.$row['token']);
+		
+			if($params['type'] == 'tournament_ranking')
+			$response = $client->request('GET', MATCHUNTER_API['root'].MATCHUNTER_API['names'][$params['type']]['endpoint'].'/'.$params['tournament_id'].'/'.$params['page'].'?token='.$row['token']);
+		
+			if($params['type'] == 'round_ranking')
+			$response = $client->request('GET', MATCHUNTER_API['root'].MATCHUNTER_API['names'][$params['type']]['endpoint'].'/'.$params['tournament_id'].'/'.$params['round_number'] .'/'.$params['page'].'?token='.$row['token']);
 
-    	
-    	if($params['type'] == 'tournament_ranking')
-    	$response = $client->request('GET', MATCHUNTER_API['root'].MATCHUNTER_API['names'][$params['type']]['endpoint'].'/'.$params['tournament_id'].'/'.$params['page'].'?token='.$row['token']);
+			if($params['type'] == 'round_matches')
+			$response = $client->request('GET',MATCHUNTER_API['root'].'/active/round/'.$params['tournament_id'].'/matches'.'?token='.$row['token']);
 
-    	
-    	if($params['type'] == 'round_ranking')
-    	$response = $client->request('GET', MATCHUNTER_API['root'].MATCHUNTER_API['names'][$params['type']]['endpoint'].'/'.$params['tournament_id'].'/'.$params['round_number'] .'/'.$params['page'].'?token='.$row['token']);
-
-    	if($params['type'] == 'round_matches')
-    	$response = $client->request('GET',MATCHUNTER_API['root'].'/active/round/'.$params['tournament_id'].'/matches'.'?token='.$row['token']);
-
-      	if($params['type'] == 'insights')
-    	$response = $client->request('GET', MATCHUNTER_API['root'].'/'.$params['match_id'].'/insights?token='.$row['token']);
-   	
-     	if($params['type'] == 'lineup')
-    	$response = $client->request('GET', MATCHUNTER_API['root'].'/'.$params['match_id'].'/lineup?token='.$row['token']);
-   				
-    	return $response->getBody();
+			if($params['type'] == 'insights')
+			$response = $client->request('GET', MATCHUNTER_API['root'].'/'.$params['match_id'].'/insights?token='.$row['token']);
+		
+			if($params['type'] == 'lineup')
+			$response = $client->request('GET', MATCHUNTER_API['root'].'/'.$params['match_id'].'/lineup?token='.$row['token']);
+					
+			return $response->getBody();
 		}
-	catch (GuzzleHttp\Exception\ClientException $e) {
-    	$response = $e->getResponse();
-    	$responseBodyAsString = $response->getBody();
-		return $responseBodyAsString;
+		catch (GuzzleHttp\Exception\ClientException $e) {
+			$response = $e->getResponse();
+			$responseBodyAsString = $response->getBody();
+			return $responseBodyAsString;
 		}
 	}
 	/**

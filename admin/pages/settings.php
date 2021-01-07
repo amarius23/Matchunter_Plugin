@@ -1,7 +1,7 @@
 <?php
-$title = "Settings";
+  $title = "Settings";
 
-require_once( MATCHUNTER_PATH . 'admin/partials/header.php');
+  require_once( MATCHUNTER_PATH . 'admin/partials/header.php');
 ?>
 
 <?php settings_errors();?>
